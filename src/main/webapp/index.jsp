@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Demo java web application Successfully Deloyed to Tomcat!</h2>
+<h1>Demo java web application Successfully Deloyed to Tomcat!</h1>
 </body>
 </html>
