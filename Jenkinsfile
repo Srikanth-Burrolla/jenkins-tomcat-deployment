@@ -29,7 +29,7 @@ string(defaultValue: "maven-snapshots", description: 'Enter your Nexus artifact 
         NEXUS_CREDENTIAL_ID = "nexus3"
     }
     stages {
-        stage("clone code") {
+        stage("Git Code Checkout") {
             steps {
                 script {
                     // Let's clone the source
@@ -37,7 +37,7 @@ string(defaultValue: "maven-snapshots", description: 'Enter your Nexus artifact 
                 }
             }
         }
-        stage("mvn build") {
+        stage("Maven Build") {
             steps {
                 script {
                     // If you are using Windows then you should use "bat" step
@@ -46,7 +46,7 @@ string(defaultValue: "maven-snapshots", description: 'Enter your Nexus artifact 
                 }
             }
         }
-        stage("publish to nexus") {
+        stage("Publis to Nexus") {
             steps {
                 script {
                     // Read POM xml file using 'readMavenPom' step , this step 'readMavenPom' is included in: https://plugins.jenkins.io/pipeline-utility-steps
