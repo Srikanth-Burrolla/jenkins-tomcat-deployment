@@ -42,7 +42,7 @@ string(defaultValue: "maven-snapshots", description: 'Enter your Nexus artifact 
                 script {
                     // If you are using Windows then you should use "bat" step
                     // Since unit testing is out of the scope we skip them
-                    bat "mvn clean package -DskipTests=true"
+                    bat "mvn clean package"
                 }
             }
         }
