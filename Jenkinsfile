@@ -100,7 +100,7 @@ string(defaultValue: "maven-snapshots", description: 'Enter your Nexus artifact 
             steps {
                 script {
                     // Let's deploy artifact to tomcat
-                    deploy adapters: [tomcat9(url: 'http://localhost:8080/', credentialsId: 'tomcat9')], war: 'target/*.war', contextPath: 'demo'
+                    deploy adapters: [tomcat9(url: 'http://localhost:8080/', credentialsId: 'tomcat9')], war: 'target/*.war', contextPath: 'HelloWorld'
                 }
             }
         }
