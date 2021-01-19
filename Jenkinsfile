@@ -9,7 +9,7 @@ pipeline {
         choice(choices: ['Dev', 'Test', 'Stage', 'Prod'], description: 'Select env', name: 'Environment')
         choice(choices: ['master', 'feature', 'enhancement'], description: 'Select Branch env', name: 'Branch Name')
         string(defaultValue: "0.0.0.0-SNAPSHOT", description: 'Enter your Version number ', name: 'VERSION')
-string(defaultValue: "maven-snapshots", description: 'Enter your Nexus artifact Repo Name ', name: 'REPOSITORY')
+        string(defaultValue: "maven-snapshots", description: 'Enter your Nexus artifact Repo Name ', name: 'REPOSITORY')
     }
     
     tools {
@@ -47,13 +47,12 @@ string(defaultValue: "maven-snapshots", description: 'Enter your Nexus artifact 
             }
         }
         
-        stage("SonarQube Analysis") {
+       stage("SonarQube Analysis") {
             steps {
                 script {
-                    // If you are using Windows then you should use "bat" step
-                    // Since unit testing is out of the scope we skip them
-                    withSonarQubeEnv('SonarQbue6') {
-                    bat "mvn sonar:sonar"
+ 		       bat "mvn sonar:sonar \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.login=4eea0b7da9b2ddd46b94a0a78bb29c4f6d698b63"
                     }
                 }
             }
