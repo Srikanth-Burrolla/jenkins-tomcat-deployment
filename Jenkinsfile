@@ -46,6 +46,13 @@ string(defaultValue: "maven-snapshots", description: 'Enter your Nexus artifact 
                 }
             }
         }
+        
+        stage('SonarQube Analysis') {
+        withSonarQubeEnv('SonarQbue6') { 
+          bat "mvn sonar:sonar"
+          }
+       }
+        
         stage("Publis to Nexus") {
             steps {
                 script {
