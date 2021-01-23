@@ -110,9 +110,18 @@ pipeline {
         }
         
         
-   stage('Build Docker Image'){
-        bat "docker build -t parashuraam/java-web-app:${buildNumber} ."
-    }
+
+        
+        stage("Build Docker Image") {
+            steps {
+                script {
+                    // If you are using Windows then you should use "bat" step
+                    // Since unit testing is out of the scope we skip them
+                     bat "docker build -t parashuraam/java-web-app:${buildNumber} ."
+                }
+            }
+        }
+        
 
 
     }
