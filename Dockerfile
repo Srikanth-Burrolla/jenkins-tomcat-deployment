@@ -13,7 +13,7 @@ RUN java -version
 
 WORKDIR /opt/app/tomcat/webapps
 
-COPY target/java-web-app*.war /opt/app/tomcat/webapp/java-web-app.war
+COPY target/HelloWorld*.war /opt/app/tomcat/webapp/HelloWorld.war
 
 EXPOSE 8080
 
