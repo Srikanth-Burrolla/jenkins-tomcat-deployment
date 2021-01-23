@@ -9,6 +9,7 @@ pipeline {
         choice(choices: ['Dev', 'Test', 'Stage', 'Prod'], description: 'Select env', name: 'Environment')
         choice(choices: ['master', 'feature', 'enhancement'], description: 'Select Branch env', name: 'Branch Name')
         string(defaultValue: "0.0.0.0-SNAPSHOT", description: 'Enter your Version number ', name: 'VERSION')
+        string(defaultValue: "0.0.0.0", description: 'Enter your Docker image build number ', name: 'buildNumber')
         string(defaultValue: "maven-snapshots", description: 'Enter your Nexus artifact Repo Name ', name: 'REPOSITORY')
     }
     
@@ -109,14 +110,9 @@ pipeline {
         }
         
         
-        stage("Deply to Tomcat") {
-            steps {
-                script {
-                    // Let's deploy artifact to tomcat
-                    deploy adapters: [tomcat9(url: 'http://localhost:8080/', credentialsId: 'tomcat9')], war: 'target/*.war', contextPath: 'HelloWorld'
-                }
-            }
-        }
+   stage('Build Docker Image'){
+        sh "docker build -t parashuraam/java-web-app:${buildNumber} ."
+    }
 
 
     }
