@@ -12,7 +12,8 @@ RUN yum -y install java
 RUN java -version
 
 WORKDIR /opt/app/tomcat/webapps
-RUN curl -O -L https://github.com/AKSarav/SampleWebApp/raw/master/dist/SampleWebApp.war
+
+COPY target/java-web-app*.war /opt/app/tomcat/webapp/java-web-app.war
 
 EXPOSE 8080
 
