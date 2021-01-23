@@ -111,7 +111,7 @@ pipeline {
         
         
    stage('Build Docker Image'){
-        sh "docker build -t parashuraam/java-web-app:${buildNumber} ."
+        bat "docker build -t parashuraam/java-web-app:${buildNumber} ."
     }
 
 
