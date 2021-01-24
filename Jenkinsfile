@@ -16,7 +16,7 @@ pipeline {
     tools {
         // Note: this should match with the tool name configured in your jenkins instance (JENKINS_URL/configureTools/)
         maven "LocalMaven"
-        dockerTool "docker"
+        //dockerTool "docker"
     }
     environment {
         // This can be nexus3 or nexus2
@@ -48,8 +48,18 @@ pipeline {
                 }
             }
         }
+		
+		  stage("SonarQube Analysis") {
+            steps {
+                script {
+ 		       bat "mvn sonar:sonar \
+                   -Dsonar.host.url=http://localhost:9000 \
+                   -Dsonar.login=147d7279d333d11924eba2108b78e64bb210552d"
+                    }
+                }
+            }
         
-       
+        
         
         stage("Publis to Nexus") {
             steps {
@@ -101,18 +111,44 @@ pipeline {
         }
         
         
-
-        
         stage("Build Docker Image") {
             steps {
                 script {
                     // If you are using Windows then you should use "bat" step
                     // Since unit testing is out of the scope we skip them
-                     bat "docker build -t parashuraam/java-web-app:${buildNumber} ."
+                     bat "docker build -t parashuraam/HelloWorld:${buildNumber} ."
                 }
             }
         }
         
+      
+      
+       stage("Push Docker Image") {
+            steps {
+                script {
+                    // If you are using Windows then you should use "bat" step
+                    // Since unit testing is out of the scope we skip them
+                     withCredentials([string(credentialsId: 'DockerHubPwd', variable: 'DockerHubPwd')]) {
+                     bat "docker login -u parashuraam -p ${DockerHubPwd}"
+                    }
+                  bat "docker push parashuraam/HelloWorld:${buildNumber}"
+                }
+            }
+        }
+        
+
+        stage("Run Docker Image In Dev Server") {
+            steps {
+                script {
+                    // If you are using Windows then you should use "bat" step
+                    // Since unit testing is out of the scope we skip them
+                     
+		            	bat "docker stop HelloWorld"
+                        bat "docker rm HelloWorld"
+                        bat "docker run  -d -p 8080:8080 --name HelloWorld parashuraam/HelloWorld:${buildNumber}"
+                }
+            }
+        }
 
 
     }
