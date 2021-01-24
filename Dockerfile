@@ -2,7 +2,7 @@ FROM centos:latest
 
 MAINTAINER parshuram.kurma@gmail.com
 
-RUN mkdir /opt/app/tomcat/
+RUN mkdir -p /opt/app/tomcat/
 
 WORKDIR /opt/app/tomcat
 RUN curl -O https://downloads.apache.org/tomcat/tomcat-10/v10.0.0/bin/apache-tomcat-10.0.0.tar.gz
