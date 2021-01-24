@@ -116,7 +116,7 @@ pipeline {
                 script {
                     // If you are using Windows then you should use "bat" step
                     // Since unit testing is out of the scope we skip them
-                     bat "docker build -t parashuraam/HelloWorld:${buildNumber} ."
+                     bat "docker build -t parashuraam/helloworld:${buildNumber} ."
                 }
             }
         }
@@ -131,7 +131,7 @@ pipeline {
                      withCredentials([string(credentialsId: 'DockerHubPwd', variable: 'DockerHubPwd')]) {
                      bat "docker login -u parashuraam -p ${DockerHubPwd}"
                     }
-                  bat "docker push parashuraam/HelloWorld:${buildNumber}"
+                  bat "docker push parashuraam/helloworld:${buildNumber}"
                 }
             }
         }
@@ -143,9 +143,9 @@ pipeline {
                     // If you are using Windows then you should use "bat" step
                     // Since unit testing is out of the scope we skip them
                      
-		            	bat "docker stop HelloWorld"
+		        bat "docker stop HelloWorld"
                         bat "docker rm HelloWorld"
-                        bat "docker run  -d -p 8080:8080 --name HelloWorld parashuraam/HelloWorld:${buildNumber}"
+                        bat "docker run  -d -p 8080:8080 --name HelloWorld parashuraam/helloworld:${buildNumber}"
                 }
             }
         }
