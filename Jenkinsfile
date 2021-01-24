@@ -52,9 +52,7 @@ pipeline {
 		  stage("SonarQube Analysis") {
             steps {
                 script {
- 		       bat "mvn sonar:sonar \
-                   -Dsonar.host.url=http://localhost:9000 \
-                   -Dsonar.login=147d7279d333d11924eba2108b78e64bb210552d"
+ 		       bat "mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=147d7279d333d11924eba2108b78e64bb210552d"
                     }
                 }
             }
